@@ -50,10 +50,6 @@ extension AssociatedObjectMacro: PeerMacro {
             return []
         }
 
-        let keyAccessor = """
-        _associated_object_key()
-        """
-
         let keyDecl = VariableDeclSyntax(
             attributes: [
                 .attribute("@inline(never)")
@@ -62,10 +58,8 @@ extension AssociatedObjectMacro: PeerMacro {
             bindings: PatternBindingListSyntax {
                 PatternBindingSyntax(
                     pattern: IdentifierPatternSyntax(identifier: .identifier("__associated_\(identifier.trimmed)Key")),
-                    typeAnnotation: .init(type: IdentifierTypeSyntax(name: .identifier("UnsafeRawPointer"))),
-                    accessorBlock: .init(
-                        accessors: .getter("\(raw: keyAccessor)")
-                    )
+                    typeAnnotation: .init(type: IdentifierTypeSyntax(name: .identifier("UInt8"))),
+					initializer: .init(value: ExprSyntax(stringLiteral: "0"))
                 )
             }
         )
@@ -107,10 +101,8 @@ extension AssociatedObjectMacro: PeerMacro {
                         pattern: IdentifierPatternSyntax(
                             identifier: .identifier("__associated___associated_\(identifier.trimmed)IsSetKey")
                         ),
-                        typeAnnotation: .init(type: IdentifierTypeSyntax(name: .identifier("UnsafeRawPointer"))),
-                        accessorBlock: .init(
-                            accessors: .getter("\(raw: keyAccessor)")
-                        )
+                        typeAnnotation: .init(type: IdentifierTypeSyntax(name: .identifier("UInt8"))),
+						initializer: .init(value: ExprSyntax(stringLiteral: "0"))
                     )
                 }
             )
@@ -190,7 +182,7 @@ extension AssociatedObjectMacro: AccessorMacro {
         if let element = arguments.first(where: { $0.label?.text == "key" }),
            let customKey = element.expression.as(ExprSyntax.self) {
             // Provide store key from outside the macro
-            associatedKey = "&\(customKey)"
+            associatedKey = "\(customKey)"
         }
 
         return [
@@ -245,7 +237,7 @@ extension AssociatedObjectMacro {
                         let value: \(type.trimmed) = \(defaultValue.trimmed)
                         setAssociatedObject(
                             self,
-                            \(associatedKey),
+                            &\(associatedKey),
                             value,
                             \(policy.trimmed)
                         )
@@ -254,7 +246,7 @@ extension AssociatedObjectMacro {
                     } else {
                         return getAssociatedObject(
                             self,
-                            \(associatedKey)
+                            &\(associatedKey)
                         ) as? \(typeWithoutOptional.trimmed)
                     }
                     """
@@ -262,14 +254,14 @@ extension AssociatedObjectMacro {
                     """
                     if let value = getAssociatedObject(
                         self,
-                        \(associatedKey)
+                        &\(associatedKey)
                     ) as? \(typeWithoutOptional.trimmed) {
                         return value
                     } else {
                         let value: \(type.trimmed) = \(defaultValue.trimmed)
                         setAssociatedObject(
                             self,
-                            \(associatedKey),
+                            &\(associatedKey),
                             value,
                             \(policy.trimmed)
                         )
@@ -280,7 +272,7 @@ extension AssociatedObjectMacro {
                     """
                     getAssociatedObject(
                         self,
-                        \(associatedKey)
+                        &\(associatedKey)
                     ) as? \(typeWithoutOptional.trimmed)
                     ?? \(defaultValue ?? "nil")
                     """
@@ -329,7 +321,7 @@ extension AssociatedObjectMacro {
                 """
                 setAssociatedObject(
                     self,
-                    \(associatedKey),
+                    &\(associatedKey),
                     newValue,
                     \(policy)
                 )

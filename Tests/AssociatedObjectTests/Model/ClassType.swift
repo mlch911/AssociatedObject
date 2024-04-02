@@ -68,11 +68,11 @@ class ClassType {
 
 class ClassType2 {}
 
-protocol ProtocolType: AnyObject {}
+//protocol ProtocolType: AnyObject {}
+//
+//extension ProtocolType {
+//    @AssociatedObject(.retain(.nonatomic))
+//    var definedInProtocol = "hello"
+//}
 
-extension ProtocolType {
-    @AssociatedObject(.retain(.nonatomic))
-    var definedInProtocol = "hello"
-}
-
-extension ClassType: ProtocolType {}
+//extension ClassType: ProtocolType {}

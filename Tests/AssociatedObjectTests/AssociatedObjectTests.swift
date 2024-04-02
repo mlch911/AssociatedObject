@@ -30,14 +30,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String {
                         return value
                     } else {
                         let value: String = "text"
                         setAssociatedObject(
                             self,
-                            Self.__associated_stringKey,
+                            &Self.__associated_stringKey,
                             value,
                             .retain(.atomic)
                         )
@@ -47,16 +47,14 @@ final class AssociatedObjectTests: XCTestCase {
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.atomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -73,14 +71,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_intKey
+                        &Self.__associated_intKey
                     ) as? Int {
                         return value
                     } else {
                         let value: Int = 5
                         setAssociatedObject(
                             self,
-                            Self.__associated_intKey,
+                            &Self.__associated_intKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -90,16 +88,14 @@ final class AssociatedObjectTests: XCTestCase {
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_intKey,
+                        &Self.__associated_intKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_intKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_intKey: UInt8 = 0
             """
         }
     }
@@ -116,14 +112,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_floatKey
+                        &Self.__associated_floatKey
                     ) as? Float {
                         return value
                     } else {
                         let value: Float = 5.0
                         setAssociatedObject(
                             self,
-                            Self.__associated_floatKey,
+                            &Self.__associated_floatKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -133,16 +129,14 @@ final class AssociatedObjectTests: XCTestCase {
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_floatKey,
+                        &Self.__associated_floatKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_floatKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_floatKey: UInt8 = 0
             """
         }
     }
@@ -159,14 +153,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_doubleKey
+                        &Self.__associated_doubleKey
                     ) as? Double {
                         return value
                     } else {
                         let value: Double = 5.0
                         setAssociatedObject(
                             self,
-                            Self.__associated_doubleKey,
+                            &Self.__associated_doubleKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -176,16 +170,14 @@ final class AssociatedObjectTests: XCTestCase {
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_doubleKey,
+                        &Self.__associated_doubleKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_doubleKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_doubleKey: UInt8 = 0
             """
         }
     }
@@ -202,14 +194,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String {
                         return value
                     } else {
                         let value: String = "text"
                         setAssociatedObject(
                             self,
-                            Self.__associated_stringKey,
+                            &Self.__associated_stringKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -219,16 +211,14 @@ final class AssociatedObjectTests: XCTestCase {
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -245,23 +235,21 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String
                     ?? nil
                 }
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -278,23 +266,21 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? Optional<String>
                     ?? nil
                 }
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -311,23 +297,21 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String
                     ?? nil
                 }
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -346,7 +330,7 @@ final class AssociatedObjectTests: XCTestCase {
                         let value: String? = "hello"
                         setAssociatedObject(
                             self,
-                            Self.__associated_stringKey,
+                            &Self.__associated_stringKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -355,29 +339,25 @@ final class AssociatedObjectTests: XCTestCase {
                     } else {
                         return getAssociatedObject(
                             self,
-                            Self.__associated_stringKey
+                            &Self.__associated_stringKey
                         ) as? String
                     }
                 }
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
 
             @_AssociatedObject(.retain(.nonatomic)) var __associated_stringIsSet: Bool = false
 
-            @inline(never) static var __associated___associated_stringIsSetKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated___associated_stringIsSetKey: UInt8 = 0
             """
         }
     }
@@ -394,14 +374,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_boolKey
+                        &Self.__associated_boolKey
                     ) as? Bool {
                         return value
                     } else {
                         let value: Bool = false
                         setAssociatedObject(
                             self,
-                            Self.__associated_boolKey,
+                            &Self.__associated_boolKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -411,16 +391,14 @@ final class AssociatedObjectTests: XCTestCase {
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_boolKey,
+                        &Self.__associated_boolKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_boolKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_boolKey: UInt8 = 0
             """
         }
     }
@@ -437,14 +415,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_intArrayKey
+                        &Self.__associated_intArrayKey
                     ) as? [Int] {
                         return value
                     } else {
                         let value: [Int] = [1, 2, 3]
                         setAssociatedObject(
                             self,
-                            Self.__associated_intArrayKey,
+                            &Self.__associated_intArrayKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -454,16 +432,14 @@ final class AssociatedObjectTests: XCTestCase {
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_intArrayKey,
+                        &Self.__associated_intArrayKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_intArrayKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_intArrayKey: UInt8 = 0
             """
         }
     }
@@ -480,23 +456,21 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     getAssociatedObject(
                         self,
-                        Self.__associated_boolKey
+                        &Self.__associated_boolKey
                     ) as? Bool
                     ?? nil
                 }
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_boolKey,
+                        &Self.__associated_boolKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_boolKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_boolKey: UInt8 = 0
             """
         }
     }
@@ -513,14 +487,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_dicKey
+                        &Self.__associated_dicKey
                     ) as? [String: String] {
                         return value
                     } else {
                         let value: [String: String] = ["t": "a"]
                         setAssociatedObject(
                             self,
-                            Self.__associated_dicKey,
+                            &Self.__associated_dicKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -530,16 +504,14 @@ final class AssociatedObjectTests: XCTestCase {
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_dicKey,
+                        &Self.__associated_dicKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_dicKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_dicKey: UInt8 = 0
             """
         }
     }
@@ -565,14 +537,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String {
                         return value
                     } else {
                         let value: String = "text"
                         setAssociatedObject(
                             self,
-                            Self.__associated_stringKey,
+                            &Self.__associated_stringKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -589,16 +561,14 @@ final class AssociatedObjectTests: XCTestCase {
 
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -622,14 +592,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String {
                         return value
                     } else {
                         let value: String = "text"
                         setAssociatedObject(
                             self,
-                            Self.__associated_stringKey,
+                            &Self.__associated_stringKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -641,7 +611,7 @@ final class AssociatedObjectTests: XCTestCase {
                     let oldValue = string
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
@@ -653,9 +623,7 @@ final class AssociatedObjectTests: XCTestCase {
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -687,14 +655,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String {
                         return value
                     } else {
                         let value: String = "text"
                         setAssociatedObject(
                             self,
-                            Self.__associated_stringKey,
+                            &Self.__associated_stringKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -712,7 +680,7 @@ final class AssociatedObjectTests: XCTestCase {
                     let oldValue = string
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
@@ -724,9 +692,7 @@ final class AssociatedObjectTests: XCTestCase {
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -752,14 +718,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String {
                         return value
                     } else {
                         let value: String = "text"
                         setAssociatedObject(
                             self,
-                            Self.__associated_stringKey,
+                            &Self.__associated_stringKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -776,16 +742,14 @@ final class AssociatedObjectTests: XCTestCase {
 
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -809,14 +773,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String {
                         return value
                     } else {
                         let value: String = "text"
                         setAssociatedObject(
                             self,
-                            Self.__associated_stringKey,
+                            &Self.__associated_stringKey,
                             value,
                             .retain(.nonatomic)
                         )
@@ -828,7 +792,7 @@ final class AssociatedObjectTests: XCTestCase {
                     let oldValue = string
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .retain(.nonatomic)
                     )
@@ -840,9 +804,7 @@ final class AssociatedObjectTests: XCTestCase {
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -859,14 +821,14 @@ final class AssociatedObjectTests: XCTestCase {
                 get {
                     if let value = getAssociatedObject(
                         self,
-                        Self.__associated_stringKey
+                        &Self.__associated_stringKey
                     ) as? String {
                         return value
                     } else {
                         let value: String = "text"
                         setAssociatedObject(
                             self,
-                            Self.__associated_stringKey,
+                            &Self.__associated_stringKey,
                             value,
                             .copy(.nonatomic)
                         )
@@ -876,16 +838,14 @@ final class AssociatedObjectTests: XCTestCase {
                 set {
                     setAssociatedObject(
                         self,
-                        Self.__associated_stringKey,
+                        &Self.__associated_stringKey,
                         newValue,
                         .copy(.nonatomic)
                     )
                 }
             }
 
-            @inline(never) static var __associated_stringKey: UnsafeRawPointer {
-                _associated_object_key()
-            }
+            @inline(never) static var __associated_stringKey: UInt8 = 0
             """
         }
     }
@@ -1041,12 +1001,12 @@ extension AssociatedObjectTests {
         XCTAssertTrue(item.classType === item.classType)
     }
 
-    func testProtocol() {
-        let item = ClassType()
-        XCTAssertEqual(item.definedInProtocol, "hello")
-
-        item.definedInProtocol = "modified"
-        XCTAssertEqual(item.definedInProtocol, "modified")
-    }
+//    func testProtocol() {
+//        let item = ClassType()
+//        XCTAssertEqual(item.definedInProtocol, "hello")
+//
+//        item.definedInProtocol = "modified"
+//        XCTAssertEqual(item.definedInProtocol, "modified")
+//    }
 }
 #endif
