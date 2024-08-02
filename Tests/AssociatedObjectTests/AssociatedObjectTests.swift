@@ -350,6 +350,7 @@ final class AssociatedObjectTests: XCTestCase {
                         newValue,
                         .retain(.nonatomic)
                     )
+                    self.__associated_stringIsSet = true
                 }
             }
 
