@@ -19,7 +19,28 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/p-x9/AssociatedObject.git", :tag => "#{s.version}" }
 
-  s.prepare_command = 'swift build -c release && cp -f .build/release/AssociatedObjectPlugin ./Binary'
+  s.prepare_command = <<-CMD
+    set -e
+    swift build -c release
+    if [ $? -ne 0 ]; then
+      echo "Error: Failed to build AssociatedObject"
+      exit 1
+    fi
+
+    if [ -f ".build/release/AssociatedObjectPlugin-tool" ]; then
+      cp -f .build/release/AssociatedObjectPlugin-tool ./Binary/AssociatedObjectPlugin
+    elif [ -f ".build/release/AssociatedObjectPlugin" ]; then
+      cp -f .build/release/AssociatedObjectPlugin ./Binary/AssociatedObjectPlugin
+    else
+      echo "Error: Neither AssociatedObjectPlugin-tool nor AssociatedObjectPlugin found in .build/release"
+      exit 1
+    fi
+
+    if [ $? -ne 0 ]; then
+      echo "Error: Failed to copy AssociatedObjectPlugin to Binary directory"
+      exit 1
+    fi
+  CMD
 
   s.source_files  = "Sources/AssociatedObject/**/*.{c,h,m,swift}", 'Sources/AssociatedObjectC/**/*.{c,h,m,swift}'
   s.swift_versions = "5.9"
